@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--==title======================-->
+    <title>Beauty Website HTML</title>
+    <!--==CSS========================-->
+    <link rel="stylesheet" href="css/style.css"/>
+    <style>
+    .d-product-img{position:relative;text-align:center;}
+    .d-product-img .img-nav{position:absolute;top:45%;background:#fff;border:1px solid #ccc;padding:6px;cursor:pointer;z-index:10;}
+    #prev-img{left:10px;}
+    #next-img{right:10px;}
+    #p-thumbs{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;}
+    #p-thumbs .thumb{width:60px;height:60px;object-fit:cover;cursor:pointer;border:2px solid transparent;}
+    #p-thumbs .thumb.active{border-color:#333;}
+
+    /* Lightbox styles */
+    .lightbox{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.85);z-index:2000;padding:20px;box-sizing:border-box;}
+    .lightbox.hidden{display:none;}
+    .lb-content{max-width:1200px;max-height:80vh;display:flex;align-items:center;justify-content:center;}
+    .lb-content img{max-width:100%;max-height:80vh;object-fit:contain;}
+    .lb-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.95);border:none;padding:12px;font-size:18px;cursor:pointer;border-radius:4px;}
+    .lb-prev{left:20px;}
+    .lb-next{right:20px;}
+    #lb-close{top:20px;right:20px;left:auto;transform:none;border-radius:50%;font-size:22px;padding:8px 12px;}
+    .lb-counter{position:absolute;bottom:30px;color:#fff;font-size:14px;}
+    @media (max-width:600px){ #p-thumbs .thumb{width:44px;height:44px;} .lb-btn{padding:8px;} }
+    </style>
+    <!--==fav-icon===================-->
+    <link rel="shortcut icon" href="images/fav-icon.png"/>
+    <!--==import-poppins-font========-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!--==Font-Awesome-for-icons=====-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body>
+
+    <!--==navigation=======================-->
+    <nav class="navigation">
+
+        <!--**logo*****************-->
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="">
+        </a>
+        <!--**search***************-->
+        <form class="search-box">
+            <input type="text" placeholder="Search Product's Here" required/>
+            <button>
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+        <!--**btns*****************-->
+        <div class="nav-btns">
+            <a href="#" class="nav-user">
+                <i class="fa-regular fa-user"></i>
+            </a>
+            <a href="#" class="nav-cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+        </div>
+
+    </nav>
+
+
+    <!--==Product-Details============================-->
+    <section id="product_details">
+
+        <!--**img*************-->
+        <div class="d-product-img">
+            <button id="prev-img" class="img-nav" aria-label="Previous image">&lt;</button>
+            <img id="p-image" src="images/placeholder.png" alt=""/>
+            <button id="next-img" class="img-nav" aria-label="Next image">&gt;</button>
+            <div id="p-thumbs" class="d-product-thumbs"></div>
+        </div>
+        <!--**text************-->
+        <div class="d-product-text">
+            <!--category-->
+            <span id="p-category" class="category">Category</span>
+            <!--title-->
+            <strong id="p-title">Product Title</strong>
+            <!--rating-->
+            <span class="rating" id="p-rating">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star-half-stroke"></i>
+                <span id="p-reviews">0 Review's</span>
+            </span>
+            <!--details-->
+            <p id="p-desc">Product description will appear here.</p>
+            <!--price-->
+            <span class="price" id="p-price">$0.00</span>
+            <!--quantity-->
+            <div class="quantity">
+                <span>Quantity: </span>
+                <input id="p-qty" type="number" value="1"/>
+            </div>
+            <!--btn-->
+            <a id="add-to-cart" href="#">Add To Cart</a>
+        </div>
+
+    </section><!--details-end-->
+
+
+    
+    <footer>
+        <div class="footer-container">
+            <!--**comoany-box**-->
+            <div class="footer-company-box">
+                <!--logo-->
+                <a href="#" class="footer-logo">Logo</a>
+                <!--details-->
+                <p>Care your skin deserves, every day.</p>
+                <!--social-box-->
+                <div class="footer-social">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <!--**link-box***-->
+            <div class="footer-link-box">
+                <strong>Main Link's</strong>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Portfolio</a></li>
+                </ul>
+            </div>
+            <!--**link-box***-->
+            <div class="footer-link-box">
+                <strong>External Link's</strong>
+                <ul>
+                    <li><a href="#">Our Product's</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                    <li><a href="#">Trem's and Condition's</a></li>
+                </ul>
+            </div>
+            <!--**link-box***-->
+            <div class="footer-link-box">
+                <strong>Our Product's</strong>
+                <ul>
+                    <li><a href="#">Skin Care</a></li>
+                    <li><a href="#">Hair Care</a></li>
+                    <li><a href="#">Nail's Polish</a></li>
+                    <li><a href="#">Eye Liner's</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!--**bottom**********************-->
+        <div class="footer-bottom">
+            <span class="footer-owner">Made By BEAUTY CORNER X RNB</span>
+            <span class="copyright">© Copyright 2026 BEAUTY CORNER X RNB</span>
+        </div>
+    </footer>
+
+<script src="js/jquery-3.6.1.js"></script>
+<script src="js/app.js"></script>
+<!-- Lightbox markup -->
+<div id="lightbox" class="lightbox hidden" aria-hidden="true" role="dialog" aria-label="Image viewer">
+  <button id="lb-close" class="lb-btn" aria-label="Close">&times;</button>
+  <button id="lb-prev" class="lb-btn lb-prev" aria-label="Previous">&lt;</button>
+  <div class="lb-content"><img id="lb-image" src="" alt="Product image" loading="lazy"/></div>
+  <button id="lb-next" class="lb-btn lb-next" aria-label="Next">&gt;</button>
+  <div id="lb-counter" class="lb-counter"></div>
+</div>
+
+<script>
+// product_page: fetch product by id from query string and render gallery + lightbox
+$(document).ready(function(){
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    if(!id){
+        $('#p-title').text('Product not specified');
+        $('#p-desc').text('No product id was provided in the URL.');
+        return;
+    }
+
+    function loadProducts(cb){
+        $.getJSON('data/products.json', function(data){ cb(data); }).fail(function(){
+            try{ const el = document.getElementById('products-data'); if(el && el.textContent.trim().length){ cb(JSON.parse(el.textContent)); return; } }
+            catch(e){ console.error('fallback parse error', e); }
+            console.error('Failed to load products.json and no embedded data found');
+        });
+    }
+
+    loadProducts(function(data){
+        const prod = data.products.find(p => p.id === id);
+        if(!prod){ $('#p-title').text('Product not found'); $('#p-desc').text('Could not find product with id: '+id); return; }
+        $('#p-title').text(prod.title);
+        $('#p-price').html('$'+prod.price.toFixed(2));
+        $('#p-desc').text(prod.description);
+        $('#p-category').text(prod.category);
+
+        const imgs = (prod.images && prod.images.length) ? prod.images : [prod.image];
+        let idx = 0;
+        function updateCounterDisplay(){ const cur = $('#lightbox').hasClass('hidden') ? idx : lbIdx; $('#lb-counter').text((cur+1)+' / '+imgs.length); }
+        function setImage(i){ idx = (i+imgs.length)%imgs.length; $('#p-image').attr('src', imgs[idx]); $('#p-thumbs .thumb').removeClass('active'); $('#p-thumbs .thumb').eq(Math.min(idx,11)).addClass('active'); updateCounterDisplay(); }
+
+        // render thumbnails (limit to first 12 for performance)
+        const $thumbs = $('#p-thumbs');
+        $thumbs.empty();
+        imgs.slice(0,12).forEach(function(src,i){
+            const $t = $(`<img class="thumb" src="${src}" data-idx="${i}" alt="thumb ${i+1}" loading="lazy" />`);
+            $t.on('click', function(){ const j = parseInt($(this).attr('data-idx')); setImage(j); openLightbox(j); });
+            $thumbs.append($t);
+        });
+
+        $('#prev-img').on('click', function(){ setImage(idx-1); });
+        $('#next-img').on('click', function(){ setImage(idx+1); });
+
+        setImage(0);
+
+        // Lightbox logic
+        let lbIdx = 0;
+        const $lb = $('#lightbox');
+        const $lbImage = $('#lb-image');
+        function openLightbox(i){ lbIdx = (i+imgs.length)%imgs.length; $lb.removeClass('hidden').attr('aria-hidden','false'); $lbImage.attr('src',''); $lbImage.attr('src', imgs[lbIdx]); updateCounterDisplay(); prefetchNeighbors(); $(document).on('keydown.lightbox', kbHandler); }
+        function closeLightbox(){ $lb.addClass('hidden').attr('aria-hidden','true'); $lbImage.attr('src',''); $(document).off('keydown.lightbox'); }
+        function showPrev(){ lbIdx = (lbIdx-1+imgs.length)%imgs.length; $lbImage.attr('src', imgs[lbIdx]); $('#p-image').attr('src', imgs[lbIdx]); updateCounterDisplay(); prefetchNeighbors(); }
+        function showNext(){ lbIdx = (lbIdx+1)%imgs.length; $lbImage.attr('src', imgs[lbIdx]); $('#p-image').attr('src', imgs[lbIdx]); updateCounterDisplay(); prefetchNeighbors(); }
+        function kbHandler(e){ if(e.key==='Escape'){ closeLightbox(); } else if(e.key==='ArrowLeft'){ showPrev(); } else if(e.key==='ArrowRight'){ showNext(); } }
+        function prefetchNeighbors(){ try{ const before = (lbIdx-1+imgs.length)%imgs.length; const after = (lbIdx+1)%imgs.length; new Image().src = imgs[before]; new Image().src = imgs[after]; }catch(e){} }
+
+        $('#p-image').on('click', function(){ openLightbox(idx); });
+        $('#lb-close').on('click', closeLightbox);
+        $('#lb-prev').on('click', showPrev);
+        $('#lb-next').on('click', showNext);
+        $lb.on('click', function(e){ if(e.target.id === 'lightbox') closeLightbox(); });
+
+    });
+});
+</script>
+</body>
+</html>
