@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--==title======================-->
-    <title>Beauty Website HTML</title>
+    <title>Beauty Corner × RNB — Product</title>
     <!--==CSS========================-->
     <link rel="stylesheet" href="css/style.css"/>
     <style>
@@ -46,6 +46,8 @@
         <!--**logo*****************-->
         <a href="index.html" class="logo">
             <img src="images/logo.png" alt="">
+            <span class="brand-name">Beauty Corner × RNB</span>
+            <small class="tagline">Beauty that resonates</small>
         </a>
         <!--**search***************-->
         <form class="search-box">
@@ -59,8 +61,9 @@
             <a href="#" class="nav-user">
                 <i class="fa-regular fa-user"></i>
             </a>
-            <a href="#" class="nav-cart">
+            <a href="#" class="nav-cart" aria-label="Open cart" aria-expanded="false">
                 <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count" aria-live="polite" aria-atomic="true" hidden>0</span>
             </a>
         </div>
 
@@ -161,8 +164,8 @@
 
         <!--**bottom**********************-->
         <div class="footer-bottom">
-            <span class="footer-owner">Made By BEAUTY CORNER X RNB</span>
-            <span class="copyright">© Copyright 2026 BEAUTY CORNER X RNB</span>
+            <span class="footer-owner">Made by Beauty Corner × RNB</span>
+            <span class="copyright">© Copyright 2026 - Beauty Corner × RNB</span>
         </div>
     </footer>
 
@@ -204,19 +207,28 @@ $(document).ready(function(){
         $('#p-desc').text(prod.description);
         $('#p-category').text(prod.category);
 
-        const imgs = (prod.images && prod.images.length) ? prod.images : [prod.image];
+        // If `single=1` is present in the query, only show the primary image (no thumbnails or lightbox trigger)
+        const single = params.get('single');
+        const imgs = single ? [prod.image] : ((prod.images && prod.images.length) ? prod.images : [prod.image]);
         let idx = 0;
         function updateCounterDisplay(){ const cur = $('#lightbox').hasClass('hidden') ? idx : lbIdx; $('#lb-counter').text((cur+1)+' / '+imgs.length); }
-        function setImage(i){ idx = (i+imgs.length)%imgs.length; $('#p-image').attr('src', imgs[idx]); $('#p-thumbs .thumb').removeClass('active'); $('#p-thumbs .thumb').eq(Math.min(idx,11)).addClass('active'); updateCounterDisplay(); }
+        function setImage(i){ idx = (i+imgs.length)%imgs.length; $('#p-image').attr('src', imgs[idx]); if(!single){ $('#p-thumbs .thumb').removeClass('active'); $('#p-thumbs .thumb').eq(Math.min(idx,11)).addClass('active'); } updateCounterDisplay(); }
 
-        // render thumbnails (limit to first 12 for performance)
+        // render thumbnails (limit to first 12 for performance) — only when not single
         const $thumbs = $('#p-thumbs');
         $thumbs.empty();
-        imgs.slice(0,12).forEach(function(src,i){
-            const $t = $(`<img class="thumb" src="${src}" data-idx="${i}" alt="thumb ${i+1}" loading="lazy" />`);
-            $t.on('click', function(){ const j = parseInt($(this).attr('data-idx')); setImage(j); openLightbox(j); });
-            $thumbs.append($t);
-        });
+        if(!single){
+            imgs.slice(0,12).forEach(function(src,i){
+                const $t = $(`<img class="thumb" src="${src}" data-idx="${i}" alt="thumb ${i+1}" loading="lazy" />`);
+                $t.on('click', function(){ const j = parseInt($(this).attr('data-idx')); setImage(j); openLightbox(j); });
+                $thumbs.append($t);
+            });
+        } else {
+            $thumbs.hide();
+            $('#prev-img, #next-img').hide();
+            // disable opening lightbox by clicking the main image when single view is requested
+            $('#p-image').off('click');
+        }
 
         $('#prev-img').on('click', function(){ setImage(idx-1); });
         $('#next-img').on('click', function(){ setImage(idx+1); });
@@ -239,6 +251,22 @@ $(document).ready(function(){
         $('#lb-prev').on('click', showPrev);
         $('#lb-next').on('click', showNext);
         $lb.on('click', function(e){ if(e.target.id === 'lightbox') closeLightbox(); });
+
+        // Product page add-to-cart (persists in localStorage 'bc_cart')
+        function getCart(){ try{ return JSON.parse(localStorage.getItem('bc_cart')||'[]'); }catch(e){ return []; } }
+        function saveCart(cart){ localStorage.setItem('bc_cart', JSON.stringify(cart)); }
+        function flashMessage(msg){ const $m = $('<div class="flash-msg">'+msg+'</div>'); $('body').append($m); setTimeout(()=> $m.addClass('visible'),10); setTimeout(()=> $m.removeClass('visible'),2000); setTimeout(()=> $m.remove(),2400); }
+
+        $('#add-to-cart').on('click', function(e){
+            e.preventDefault();
+            const qty = Math.max(1, parseInt($('#p-qty').val()) || 1);
+            let cart = getCart();
+            const existing = cart.find(i=>i.id===prod.id);
+            const imageToStore = (imgs && imgs.length) ? imgs[0] : prod.image;
+            if(existing){ existing.qty += qty; } else { cart.push({id: prod.id, title: prod.title, price: prod.price, image: imageToStore, qty: qty}); }
+            saveCart(cart);
+            flashMessage('Added to cart');
+        });
 
     });
 });
