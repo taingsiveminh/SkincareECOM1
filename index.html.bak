@@ -413,13 +413,13 @@
                 <!--logo-->
                 <a href="#" class="footer-logo">Logo</a>
                 <!--details-->
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi quas neque repudiandae nihil.</p>
+                <p><strong>Contact Us</strong> ទាក់ទង​មក​ពួក​យើង : +855 967375885<br>អាសយដ្ឋាន : Phnom Penh, Cambodia</p>
                 <!--social-box-->
                 <div class="footer-social">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://web.facebook.com/beautyinsideoutKTR?mibextid=wwXIfr&rdid=zAoWtK0WR4k04KZK&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F1Eaduq1Z3J%2F%3Fmibextid%3DwwXIfr%26_rdc%3D1%26_rdr" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://t.me/beautycornerretail" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="https://www.tiktok.com/@beauty_corner.sto?_t=ZS-8wXEtiqIMyu&_r=1" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/beauty_corner.store/?igsh=aGtlaXF4aHN3Y3d2&utm_source=qr" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
             <!--**link-box***-->
